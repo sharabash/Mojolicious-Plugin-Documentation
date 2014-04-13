@@ -5,9 +5,8 @@ use File::Spec::Functions 'catdir';
 
 use Pod::Simple::Search;
 use Pod::Simple::HTML;
-use IO::All;
+use Mojo::Util 'slurp';
 
-has _root => sub { 'docs' };
 sub register {
     my ( $self, $app ) = @_;
 
@@ -59,6 +58,7 @@ sub register {
     $app->helper( __path_ => sub { shift; $self->_path( @_ ) } );
 }
 
+has _root => sub { 'docs' };
 has _base => sub {
     my $self = shift;
     my $base = $FindBin::Bin;
@@ -88,10 +88,17 @@ sub pod {
         , $self->__path_( 'doc' )
         , @INC
     );
-    $pod->parse_string_document( io( $in )->all ) if $in and -e $in;
+    $pod->parse_string_document( slurp $in ) if $in and -e $in;
     $self->res->headers->content_type( 'text/html' );
     $self->render( layout => 'documentation', template => 'pod', pod => $out, name => $args{pod}, file => $in );
     $self->rendered( 200 );
 }
 
+# ABSTRACT: A work in progress; intended to be a better documentation renderer then PODRenderer (don't use this for now).
 1;
+
+=head1 DO NOT USE THIS
+
+I'm still working on it.
+
+=cut
