@@ -4,11 +4,15 @@
 
 =head1 NAME
 
-Mojolicious::Plugin::Documentation
+Mojolicious::Plugin::Documentation - A work in progress; intended to be a better documentation renderer then PODRenderer (don't use this for now).
 
 =head1 VERSION
 
 version 0.01
+
+=head1 DO NOT USE THIS
+
+I'm still working on it.
 
 =for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
 
