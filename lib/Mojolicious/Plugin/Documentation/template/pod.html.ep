@@ -1,0 +1,6 @@
+% $self->stash->{pod} //= '?';
+<h1>$args{pod} => <%= $self->stash->{args}{pod} %></h1>
+% if ( $self->stash->{file} ) {
+<h2>$file => <%= $self->stash->{file} %></h2>
+% }
+<div><%== $self->stash->{pod} =%></div>
