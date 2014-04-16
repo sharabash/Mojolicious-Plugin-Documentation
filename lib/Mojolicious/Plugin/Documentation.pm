@@ -32,6 +32,7 @@ sub register {
         my @route;
         my @children = @{ $r->children };
         for my $child ( @children ) {
+            next if exists $child->pattern->defaults->{cb};
             my $pattern = $child->pattern->pattern;
                $pattern //= '/';
             my %default = %{ $child->pattern->defaults };
