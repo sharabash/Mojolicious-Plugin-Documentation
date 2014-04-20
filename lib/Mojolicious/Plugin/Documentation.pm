@@ -5,7 +5,7 @@ use File::Spec::Functions 'catdir';
 
 use Pod::Simple::Search;
 use Pod::Simple::HTML;
-use Mojo::Util 'slurp';
+use Mojo::Util qw/slurp url_unescape/;
 
 sub register {
     my ( $self, $app ) = @_;
@@ -91,6 +91,7 @@ sub pod {
     );
     $pod->parse_string_document( slurp $in ) if $in and -e $in;
     $self->res->headers->content_type( 'text/html' );
+    $out =~ s#http://search.cpan.org/perldoc\?([^'"]+)#url_unescape("/docs/$1")#eg;
     $self->render( layout => 'documentation', template => 'pod', pod => $out, name => $args{pod}, file => $in );
     $self->rendered( 200 );
 }
